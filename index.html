@@ -20,10 +20,10 @@
             min-height: 100vh;
             margin: 0;
             transition: background-color 0.3s ease;
+            overflow-y: hidden;
         }
 
         .container {
-
             max-width: 600px;
             /* Set a maximum width for the container */
             width: 100%;
@@ -336,11 +336,15 @@
             }
 
             #chat-history {
-                max-height: 400px;
+                max-height: 300px;
             }
 
             .heading {
                 width: 90%;
+            }
+            
+            #prompts-list {
+                height: 100px;
             }
         }
     </style>
@@ -464,7 +468,7 @@
                 // Find exact match
                 if (userInput in prompts) {
                     const response = prompts[userInput];
-                    addToHistory('You: ' + userInput, response);
+                    addToHistory(userInput, response);
                 } else {
                     let closestPrompt = '';
                     let minDistance = Infinity;
@@ -481,9 +485,9 @@
                     // Check if closest match is within threshold distance
                     if (minDistance <= 3 && closestPrompt !== '') { // Adjust threshold as needed
                         const response = prompts[closestPrompt];
-                        addToHistory('You: ' + userInput, response);
+                        addToHistory(userInput, response);
                     } else {
-                        addToHistory('You: ' + userInput, 'I cannot understand your input.');
+                        addToHistory(userInput, 'I cannot understand your input.');
                     }
                 }
 
